@@ -11,6 +11,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 
+import static javax.swing.BoxLayout.Y_AXIS;
+
 public class Filesystem_tree extends JFrame implements TreeSelectionListener, ActionListener {
 
     private JTree file_tree;
@@ -24,11 +26,12 @@ public class Filesystem_tree extends JFrame implements TreeSelectionListener, Ac
     public Filesystem_tree(Editor ed) {
 
         //frame
-        setSize(610,600);
+        //setSize(610,600);
         setDefaultCloseOperation(HIDE_ON_CLOSE);
         setLocationRelativeTo(ed);
         setResizable(false);
         //setMinimumSize(new Dimension(500,500));
+        this.setLayout(new BorderLayout());
 
         file_tree_model = new FileTreeModel(File.listRoots()[0]);//gets the file tree, every single directory in /
         file_tree = new JTree(file_tree_model);//assigns the model to the tree
@@ -48,17 +51,15 @@ public class Filesystem_tree extends JFrame implements TreeSelectionListener, Ac
         upperPanel = new JPanel();
         lowerPanel = new JPanel();
 
-        upperPanel.setPreferredSize(new Dimension(600,525));
-        lowerPanel.setPreferredSize(new Dimension(200,35));
+        //upperPanel.setPreferredSize(new Dimension(600,525));
+        //lowerPanel.setPreferredSize(new Dimension(600,35));
 
         lowerPanel.add(ok);
         lowerPanel.add(cancel);
         upperPanel.add(scrollPane);
 
-        this.add(upperPanel);
-        this.add(lowerPanel);
-
-        this.setLayout(new FlowLayout());
+        this.add(upperPanel,BorderLayout.NORTH);
+        this.add(lowerPanel,BorderLayout.SOUTH);
 
         buttonPressed = false;
 

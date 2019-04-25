@@ -19,7 +19,7 @@ public class FontManager extends JFrame implements ListSelectionListener, Action
 
     private JList fontList;
     private JList fontSizeList;
-    private JPanel basePanel,listPanel,textPanel,buttonPanel;
+    private JPanel basePanel,buttonPanel;
     private JLabel info;
     private JButton apply,cancel;
     private JScrollPane scrollPane,scrollPane2;
@@ -36,6 +36,7 @@ public class FontManager extends JFrame implements ListSelectionListener, Action
         setLocationRelativeTo(ed);
         setResizable(false);
         //setMinimumSize(new Dimension(200,200));
+        this.setLayout(new BorderLayout());
 
         fontList = new JList();
         fontSizeList = new JList();
@@ -48,9 +49,8 @@ public class FontManager extends JFrame implements ListSelectionListener, Action
         selectedFontSize = ed.getTextBox().getFontSize();
 
         basePanel = new JPanel();
-        textPanel = new JPanel();
-        listPanel = new JPanel();
         buttonPanel = new JPanel();
+
         info = new JLabel("<html>System fonts<br>" +
                 " ------------------------------------------ <br>" +
                 " ------------------------------------------ <br>" +
@@ -63,18 +63,18 @@ public class FontManager extends JFrame implements ListSelectionListener, Action
         scrollPane.setViewportView(fontList);
         scrollPane2.setViewportView(fontSizeList);
 
-        listPanel.add(scrollPane);
-        textPanel.add(info);
+        basePanel.setLayout(new FlowLayout());
 
-        basePanel.add(textPanel);
-        basePanel.add(listPanel);
+        basePanel.add(info);
+        basePanel.add(scrollPane);
         basePanel.add(scrollPane2);
 
         buttonPanel.add(apply);
         buttonPanel.add(cancel);
 
-        basePanel.add(buttonPanel);
-        this.add(basePanel);
+        this.add(basePanel,BorderLayout.NORTH);
+        this.add(buttonPanel,BorderLayout.SOUTH);
+
         this.pack();
 
         fontList.getSelectionModel().addListSelectionListener(this);
@@ -149,9 +149,9 @@ public class FontManager extends JFrame implements ListSelectionListener, Action
                         selectedFontSize = (i * 2) +2;//lame but useful
                     }
 
-                    if(selectedFont.length() > 20) {//si la letra es muy grande para la ventana
+                    if(selectedFont.length() > 16) {//si la letra es muy grande para la ventana
 
-                        for(int j=0;j<18;j++) {
+                        for(int j=0;j<14;j++) {
 
                             auxSelectedFont = auxSelectedFont + selectedFont.charAt(j);
 
@@ -214,22 +214,6 @@ public class FontManager extends JFrame implements ListSelectionListener, Action
 
     public void setBasePanel(JPanel basePanel) {
         this.basePanel = basePanel;
-    }
-
-    public JPanel getListPanel() {
-        return listPanel;
-    }
-
-    public void setListPanel(JPanel listPanel) {
-        this.listPanel = listPanel;
-    }
-
-    public JPanel getTextPanel() {
-        return textPanel;
-    }
-
-    public void setTextPanel(JPanel textPanel) {
-        this.textPanel = textPanel;
     }
 
     public JLabel getInfo() {
